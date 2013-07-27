@@ -14,8 +14,18 @@
 
 @property (nonatomic, strong) IBOutlet UIView *cameraView;
 @property (nonatomic, strong) IBOutlet UIButton *takePhotoButton;
+@property (nonatomic, strong) IBOutlet UIButton *flashButton;
+@property (nonatomic, strong) IBOutlet UIButton *saveButton;
+@property (nonatomic, strong) IBOutlet UIButton *cancelButton;
+
 @property (nonatomic, strong) UIScrollView *watermarkScroll;
 
 - (IBAction)takePhoto:(id)sender;
+
+- (IBAction)changeFlash:(id)sender;
+
+- (IBAction)saveAction:(id)sender;
+
+- (IBAction)cancelAction:(id)sender;
 
 @end

@@ -10,6 +10,12 @@
 		3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30C17A3DD44006F8E7A /* 1.jpg */; };
 		3A56D31717A3E210006F8E7A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A56D31617A3E210006F8E7A /* ImageIO.framework */; };
 		3AED3CFC17A264AB0002FB35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */; };
+		3AF562C117A43ACA00151D09 /* flash-auto.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BB17A43ACA00151D09 /* flash-auto.png */; };
+		3AF562C217A43ACA00151D09 /* flash-auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */; };
+		3AF562C317A43ACA00151D09 /* flash-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BD17A43ACA00151D09 /* flash-off.png */; };
+		3AF562C417A43ACA00151D09 /* flash-off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BE17A43ACA00151D09 /* flash-off@2x.png */; };
+		3AF562C517A43ACA00151D09 /* flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BF17A43ACA00151D09 /* flash.png */; };
+		3AF562C617A43ACA00151D09 /* flash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562C017A43ACA00151D09 /* flash@2x.png */; };
 		3AF9F8B017A25DFA0060E4AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8AF17A25DFA0060E4AC /* UIKit.framework */; };
 		3AF9F8B217A25DFA0060E4AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8B117A25DFA0060E4AC /* Foundation.framework */; };
 		3AF9F8B417A25DFA0060E4AC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8B317A25DFA0060E4AC /* CoreGraphics.framework */; };
@@ -49,6 +55,12 @@
 		3A56D30C17A3DD44006F8E7A /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		3A56D31617A3E210006F8E7A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3AF562BB17A43ACA00151D09 /* flash-auto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-auto.png"; sourceTree = "<group>"; };
+		3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-auto@2x.png"; sourceTree = "<group>"; };
+		3AF562BD17A43ACA00151D09 /* flash-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-off.png"; sourceTree = "<group>"; };
+		3AF562BE17A43ACA00151D09 /* flash-off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-off@2x.png"; sourceTree = "<group>"; };
+		3AF562BF17A43ACA00151D09 /* flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flash.png; sourceTree = "<group>"; };
+		3AF562C017A43ACA00151D09 /* flash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash@2x.png"; sourceTree = "<group>"; };
 		3AF9F8AC17A25DFA0060E4AC /* XDWatermarkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XDWatermarkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF9F8AF17A25DFA0060E4AC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3AF9F8B117A25DFA0060E4AC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -143,6 +155,12 @@
 		3AF9F8B617A25DFA0060E4AC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3AF562BB17A43ACA00151D09 /* flash-auto.png */,
+				3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */,
+				3AF562BD17A43ACA00151D09 /* flash-off.png */,
+				3AF562BE17A43ACA00151D09 /* flash-off@2x.png */,
+				3AF562BF17A43ACA00151D09 /* flash.png */,
+				3AF562C017A43ACA00151D09 /* flash@2x.png */,
 				3A56D30C17A3DD44006F8E7A /* 1.jpg */,
 				3AF9F8B717A25DFA0060E4AC /* XDWatermarkDemo-Info.plist */,
 				3AF9F8B817A25DFA0060E4AC /* InfoPlist.strings */,
@@ -245,6 +263,12 @@
 				3AF9F8C617A25DFA0060E4AC /* Default-568h@2x.png in Resources */,
 				3AF9F8CC17A25DFA0060E4AC /* DXViewController.xib in Resources */,
 				3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */,
+				3AF562C117A43ACA00151D09 /* flash-auto.png in Resources */,
+				3AF562C217A43ACA00151D09 /* flash-auto@2x.png in Resources */,
+				3AF562C317A43ACA00151D09 /* flash-off.png in Resources */,
+				3AF562C417A43ACA00151D09 /* flash-off@2x.png in Resources */,
+				3AF562C517A43ACA00151D09 /* flash.png in Resources */,
+				3AF562C617A43ACA00151D09 /* flash@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,13 +10,17 @@
 
 #import "DXViewController.h"
 
+#import "GPUImage.h"
+
 @interface DXViewController ()
 {
     AVCaptureSession *_session;
     AVCaptureDeviceInput *_captureInput;
     AVCaptureStillImageOutput *_captureOutput;
     AVCaptureVideoPreviewLayer *_preview;
-    UIImageOrientation g_orientation_;
+    AVCaptureDevice *_device;
+    
+    UIImage *_finishImage;
 }
 
 @end
@@ -26,12 +30,15 @@
 @synthesize cameraView = _cameraView;
 @synthesize takePhotoButton = _takePhotoButton;
 @synthesize watermarkScroll = _watermarkScroll;
+@synthesize flashButton = _flashButton;
+
+@synthesize saveButton = _saveButton;
+@synthesize cancelButton = _cancelButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self initialize];
     }
     
     return self;
@@ -41,6 +48,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [self initialize];
     
     _preview = [AVCaptureVideoPreviewLayer layerWithSession: _session];
     _preview.frame = self.cameraView.frame;
@@ -65,9 +74,21 @@
     [_session setSessionPreset:AVCaptureSessionPreset640x480];
     
     //2.创建、配置输入设备
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    [_device lockForConfiguration:nil];
+    if([_device flashMode] == AVCaptureFlashModeOff){
+        [_flashButton setImage:[UIImage imageNamed:@"flash-off"] forState:UIControlStateNormal];
+    }
+    else if([_device flashMode] == AVCaptureFlashModeAuto){
+        [_flashButton setImage:[UIImage imageNamed:@"flash-auto"] forState:UIControlStateNormal];
+    }
+    else{
+        [_flashButton setImage:[UIImage imageNamed:@"flash"] forState:UIControlStateNormal];
+    }
+    [_device unlockForConfiguration];
+
 	NSError *error;
-	_captureInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+	_captureInput = [AVCaptureDeviceInput deviceInputWithDevice:_device error:&error];
 	if (!_captureInput)
 	{
 		NSLog(@"Error: %@", error);
@@ -81,6 +102,7 @@
     NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
     [_captureOutput setOutputSettings:outputSettings];
 	[_session addOutput:_captureOutput];
+    
     
     [_session startRunning];
 }
@@ -98,54 +120,6 @@
         [_watermarkScroll addSubview:imgView];
     }
     [self.cameraView.layer addSublayer:_watermarkScroll.layer];
-}
-
-- (void)changePreviewOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    [CATransaction begin];
-    if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-        g_orientation_ = UIImageOrientationLeft;
-        _preview.orientation = AVCaptureVideoOrientationLandscapeRight;
-        
-    }else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
-        g_orientation_ = UIImageOrientationRight;
-        _preview.orientation = AVCaptureVideoOrientationLandscapeLeft;
-    }
-    [CATransaction commit];
-}
-
-- (IBAction)takePhoto:(id)sender
-{
-    //get connection
-    AVCaptureConnection *videoConnection = nil;
-    for (AVCaptureConnection *connection in _captureOutput.connections) {
-        for (AVCaptureInputPort *port in [connection inputPorts]) {
-            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
-                videoConnection = connection;
-                break;
-            }
-        }
-        if (videoConnection) { break; }
-    }
-    
-    //get UIImage
-    [_captureOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:
-     ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
-         CFDictionaryRef exifAttachments =
-         CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-         if (exifAttachments) {
-             // Do something with the attachments.
-         }
-         // Continue as appropriate.
-         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-         UIImage *image = [[UIImage alloc] initWithData:imageData] ;
-
-         CGPoint point = self.watermarkScroll.contentOffset;
-         NSInteger index = self.watermarkScroll.contentOffset.x / 320;
-         UIImage *waterImage = [UIImage imageNamed:@"1.jpg"];
-         UIImage *finishImage = [self composeImage:waterImage toImage:image atFrame:CGRectMake(0, 95 * index, 320, 95)];
-         UIImageWriteToSavedPhotosAlbum(finishImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
-     }];
 }
 
 - (UIImage *)composeImage:(UIImage *)subImage toImage:(UIImage *)superImage atFrame:(CGRect)frame
@@ -177,8 +151,90 @@
     else  // No errors
     {
         // Show message image successfully saved
-         NSLog(@"save success");
+        NSLog(@"save success");
     }
+}
+
+
+#pragma mark - IBAction
+
+- (IBAction)takePhoto:(id)sender
+{
+    _watermarkScroll.scrollEnabled = NO;
+    
+    //get connection
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in _captureOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) { break; }
+    }
+    
+    //get UIImage
+    [_captureOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:
+     ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+         _saveButton.hidden = NO;
+         _cancelButton.hidden = NO;
+         [_session stopRunning];
+         CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+         if (exifAttachments) {
+             // Do something with the attachments.
+         }
+         // Continue as appropriate.
+         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         UIImage *image = [[UIImage alloc] initWithData:imageData] ;
+
+         NSInteger index = self.watermarkScroll.contentOffset.x / 320;
+         UIImage *waterImage = [UIImage imageNamed:@"1.jpg"];
+         _finishImage = [self composeImage:waterImage toImage:image atFrame:CGRectMake(0, 95 * index, 320, 95)];
+     }];
+}
+
+- (IBAction)changeFlash:(id)sender
+{
+    if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera] && [_device hasFlash])
+    {
+        [_flashButton setEnabled:NO];
+        [_device lockForConfiguration:nil];
+        if([_device flashMode] == AVCaptureFlashModeOff)
+        {
+            [_device setFlashMode:AVCaptureFlashModeAuto];
+            [_flashButton setImage:[UIImage imageNamed:@"flash-auto"] forState:UIControlStateNormal];
+        }
+        else if([_device flashMode] == AVCaptureFlashModeAuto)
+        {
+            [_device setFlashMode:AVCaptureFlashModeOn];
+            [_flashButton setImage:[UIImage imageNamed:@"flash"] forState:UIControlStateNormal];
+        }
+        else{
+            [_device setFlashMode:AVCaptureFlashModeOff];
+            [_flashButton setImage:[UIImage imageNamed:@"flash-off"] forState:UIControlStateNormal];
+        }
+        [_device unlockForConfiguration];
+        [_flashButton setEnabled:YES];
+    }
+
+}
+
+- (IBAction)saveAction:(id)sender
+{
+    UIImageWriteToSavedPhotosAlbum(_finishImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    _saveButton.hidden = YES;
+    _cancelButton.hidden = YES;
+    _watermarkScroll.scrollEnabled = YES;
+    [_session startRunning];
+}
+
+- (IBAction)cancelAction:(id)sender
+{
+    _saveButton.hidden = YES;
+    _cancelButton.hidden = YES;
+    _watermarkScroll.scrollEnabled = YES;
+    [_session startRunning];
 }
 
 
