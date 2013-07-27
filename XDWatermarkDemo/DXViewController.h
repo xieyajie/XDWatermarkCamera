@@ -13,7 +13,6 @@
 @interface DXViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIView *cameraView;
-@property (nonatomic, strong) IBOutlet UIScrollView *watermarkScroll;
-@property (nonatomic, strong) UIScrollView *coverScroller;
+@property (nonatomic, strong) UIScrollView *watermarkScroll;
 
 @end

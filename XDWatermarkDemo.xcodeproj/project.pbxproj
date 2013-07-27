@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30C17A3DD44006F8E7A /* 1.jpg */; };
+		3A56D31017A3DD44006F8E7A /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30D17A3DD44006F8E7A /* 2.jpg */; };
+		3A56D31117A3DD44006F8E7A /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30E17A3DD44006F8E7A /* 3.jpg */; };
 		3AED3CFC17A264AB0002FB35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */; };
 		3AF9F8B017A25DFA0060E4AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8AF17A25DFA0060E4AC /* UIKit.framework */; };
 		3AF9F8B217A25DFA0060E4AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8B117A25DFA0060E4AC /* Foundation.framework */; };
@@ -44,6 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A56D30C17A3DD44006F8E7A /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		3A56D30D17A3DD44006F8E7A /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		3A56D30E17A3DD44006F8E7A /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3AF9F8AC17A25DFA0060E4AC /* XDWatermarkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XDWatermarkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF9F8AF17A25DFA0060E4AC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -137,6 +143,9 @@
 		3AF9F8B617A25DFA0060E4AC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3A56D30C17A3DD44006F8E7A /* 1.jpg */,
+				3A56D30D17A3DD44006F8E7A /* 2.jpg */,
+				3A56D30E17A3DD44006F8E7A /* 3.jpg */,
 				3AF9F8B717A25DFA0060E4AC /* XDWatermarkDemo-Info.plist */,
 				3AF9F8B817A25DFA0060E4AC /* InfoPlist.strings */,
 				3AF9F8BB17A25DFA0060E4AC /* main.m */,
@@ -237,6 +246,9 @@
 				3AF9F8C417A25DFA0060E4AC /* Default@2x.png in Resources */,
 				3AF9F8C617A25DFA0060E4AC /* Default-568h@2x.png in Resources */,
 				3AF9F8CC17A25DFA0060E4AC /* DXViewController.xib in Resources */,
+				3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */,
+				3A56D31017A3DD44006F8E7A /* 2.jpg in Resources */,
+				3A56D31117A3DD44006F8E7A /* 3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +299,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -300,8 +313,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -318,14 +332,16 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -334,6 +350,7 @@
 		3AF9F8D017A25DFA0060E4AC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XDWatermarkDemo/XDWatermarkDemo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "./XDWatermarkDemo/framework/**";
@@ -343,6 +360,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -350,6 +368,7 @@
 		3AF9F8D117A25DFA0060E4AC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "XDWatermarkDemo/XDWatermarkDemo-Prefix.pch";
 				HEADER_SEARCH_PATHS = "./XDWatermarkDemo/framework/**";
@@ -359,6 +378,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
