@@ -6,14 +6,17 @@
 //  Copyright (c) 2013年 xieyajie. All rights reserved.
 //
 
+#import <ImageIO/ImageIO.h>
+
 #import "DXViewController.h"
 
-@interface DXViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface DXViewController ()
 {
     AVCaptureSession *_session;
     AVCaptureDeviceInput *_captureInput;
-    AVCaptureVideoDataOutput *_captureOutput;
+    AVCaptureStillImageOutput *_captureOutput;
     AVCaptureVideoPreviewLayer *_preview;
+    UIImageOrientation g_orientation_;
 }
 
 @end
@@ -21,6 +24,7 @@
 @implementation DXViewController
 
 @synthesize cameraView = _cameraView;
+@synthesize takePhotoButton = _takePhotoButton;
 @synthesize watermarkScroll = _watermarkScroll;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -52,16 +56,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
-
-// Delegate routine that is called when a sample buffer was written
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
-{
-    // Create a UIImage from the sample buffer data
-    UIImage *image = [self imageFromSampleBuffer:sampleBuffer];
-    
-}
-
 #pragma mark - private
 
 - (void) initialize
@@ -83,12 +77,9 @@
     
     
     //3.创建、配置输出
-    _captureOutput = [[AVCaptureVideoDataOutput alloc] init];
-    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
-    [_captureOutput setSampleBufferDelegate:self queue:queue];
-    dispatch_release(queue);
-    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA],(id)kCVPixelBufferPixelFormatTypeKey,nil];
-    [_captureOutput setVideoSettings:outputSettings];
+    _captureOutput = [[AVCaptureStillImageOutput alloc] init];
+    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
+    [_captureOutput setOutputSettings:outputSettings];
 	[_session addOutput:_captureOutput];
     
     [_session startRunning];
@@ -96,60 +87,98 @@
 
 - (void)initWaterScroll
 {
-    _watermarkScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, self.view.frame.size.height)];
+    _watermarkScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, self.cameraView.frame.size.height)];
     _watermarkScroll.contentSize = CGSizeMake(320 * 3, _watermarkScroll.frame.size.height);
+    _watermarkScroll.pagingEnabled = YES;
     _watermarkScroll.backgroundColor = [UIColor clearColor];
     CGFloat width = 320;
     for (int i = 0; i < 3; i++) {
-        NSString *imgName = [NSString stringWithFormat:@"%i.jpg", (i + 1)];
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"1.jpg"]];
         imgView.frame = CGRectMake(i * width, 95 * i, width, 95);
         [_watermarkScroll addSubview:imgView];
     }
     [self.cameraView.layer addSublayer:_watermarkScroll.layer];
 }
 
-// Create a UIImage from sample buffer data
-- (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
+- (void)changePreviewOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    // Lock the base address of the pixel buffer
-    CVPixelBufferLockBaseAddress(imageBuffer,0);
-    
-    // Get the number of bytes per row for the pixel buffer
-    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
-    // Get the pixel buffer width and height
-    size_t width = CVPixelBufferGetWidth(imageBuffer);
-    size_t height = CVPixelBufferGetHeight(imageBuffer);
-    
-    // Create a device-dependent RGB color space
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    if (!colorSpace)
-    {
-        NSLog(@"CGColorSpaceCreateDeviceRGB failure");
-        return nil;
+    [CATransaction begin];
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        g_orientation_ = UIImageOrientationLeft;
+        _preview.orientation = AVCaptureVideoOrientationLandscapeRight;
+        
+    }else if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft){
+        g_orientation_ = UIImageOrientationRight;
+        _preview.orientation = AVCaptureVideoOrientationLandscapeLeft;
+    }
+    [CATransaction commit];
+}
+
+- (IBAction)takePhoto:(id)sender
+{
+    //get connection
+    AVCaptureConnection *videoConnection = nil;
+    for (AVCaptureConnection *connection in _captureOutput.connections) {
+        for (AVCaptureInputPort *port in [connection inputPorts]) {
+            if ([[port mediaType] isEqual:AVMediaTypeVideo] ) {
+                videoConnection = connection;
+                break;
+            }
+        }
+        if (videoConnection) { break; }
     }
     
-    // Get the base address of the pixel buffer
-    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
-    // Get the data size for contiguous planes of the pixel buffer.
-    size_t bufferSize = CVPixelBufferGetDataSize(imageBuffer);
+    //get UIImage
+    [_captureOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:
+     ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+         CFDictionaryRef exifAttachments =
+         CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+         if (exifAttachments) {
+             // Do something with the attachments.
+         }
+         // Continue as appropriate.
+         NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+         UIImage *image = [[UIImage alloc] initWithData:imageData] ;
+
+         CGPoint point = self.watermarkScroll.contentOffset;
+         NSInteger index = self.watermarkScroll.contentOffset.x / 320;
+         UIImage *waterImage = [UIImage imageNamed:@"1.jpg"];
+         UIImage *finishImage = [self composeImage:waterImage toImage:image atFrame:CGRectMake(0, 95 * index, 320, 95)];
+         UIImageWriteToSavedPhotosAlbum(finishImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+     }];
+}
+
+- (UIImage *)composeImage:(UIImage *)subImage toImage:(UIImage *)superImage atFrame:(CGRect)frame
+{
+    CGSize superSize = superImage.size;
+    CGFloat widthScale = frame.size.width / self.cameraView.frame.size.width;
+    CGFloat heightScale = frame.size.height / self.cameraView.frame.size.height;
+    CGFloat xScale = frame.origin.x / self.cameraView.frame.size.width;
+    CGFloat yScale = frame.origin.y / self.cameraView.frame.size.height;
+    CGRect subFrame = CGRectMake(xScale * superSize.width, yScale * superSize.height, widthScale * superSize.width, heightScale * superSize.height);
     
-    // Create a Quartz direct-access data provider that uses data we supply
-    CGDataProviderRef provider = CGDataProviderCreateWithData(NULL, baseAddress, bufferSize,
-                                                              NULL);
-    // Create a bitmap image from data supplied by our data provider
-    CGImageRef cgImage = CGImageCreate(width, height, 8, 32, bytesPerRow, colorSpace, kCGImageAlphaNoneSkipFirst | kCGBitmapByteOrder32Little, provider, NULL, true, kCGRenderingIntentDefault);
-    CGDataProviderRelease(provider);
-    CGColorSpaceRelease(colorSpace);
-    
-    // Create and return an image object representing the specified Quartz image
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
-    CGImageRelease(cgImage);
-    
-    CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
-    
-    return image;
+    UIGraphicsBeginImageContext(superSize);
+    [superImage drawInRect:CGRectMake(0, 0, superSize.width, superSize.height)];
+    [subImage drawInRect:subFrame];
+    __autoreleasing UIImage *finish = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return finish;
+}
+
+-(void) image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    // Was there an error?
+    if (error != NULL)
+    {
+        // Show error message…
+        NSLog(@"save error");
+        
+    }
+    else  // No errors
+    {
+        // Show message image successfully saved
+         NSLog(@"save success");
+    }
 }
 
 

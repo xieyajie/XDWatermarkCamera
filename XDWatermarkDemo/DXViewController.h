@@ -13,6 +13,9 @@
 @interface DXViewController : UIViewController
 
 @property (nonatomic, strong) IBOutlet UIView *cameraView;
+@property (nonatomic, strong) IBOutlet UIButton *takePhotoButton;
 @property (nonatomic, strong) UIScrollView *watermarkScroll;
+
+- (IBAction)takePhoto:(id)sender;
 
 @end

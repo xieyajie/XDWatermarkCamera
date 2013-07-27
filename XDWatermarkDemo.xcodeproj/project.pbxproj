@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30C17A3DD44006F8E7A /* 1.jpg */; };
-		3A56D31017A3DD44006F8E7A /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30D17A3DD44006F8E7A /* 2.jpg */; };
-		3A56D31117A3DD44006F8E7A /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30E17A3DD44006F8E7A /* 3.jpg */; };
+		3A56D31717A3E210006F8E7A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A56D31617A3E210006F8E7A /* ImageIO.framework */; };
 		3AED3CFC17A264AB0002FB35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */; };
 		3AF9F8B017A25DFA0060E4AC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8AF17A25DFA0060E4AC /* UIKit.framework */; };
 		3AF9F8B217A25DFA0060E4AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9F8B117A25DFA0060E4AC /* Foundation.framework */; };
@@ -48,8 +47,7 @@
 
 /* Begin PBXFileReference section */
 		3A56D30C17A3DD44006F8E7A /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
-		3A56D30D17A3DD44006F8E7A /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
-		3A56D30E17A3DD44006F8E7A /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		3A56D31617A3E210006F8E7A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3AF9F8AC17A25DFA0060E4AC /* XDWatermarkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XDWatermarkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF9F8AF17A25DFA0060E4AC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -79,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A56D31717A3E210006F8E7A /* ImageIO.framework in Frameworks */,
 				3AED3CFC17A264AB0002FB35 /* QuartzCore.framework in Frameworks */,
 				3AF9FB0417A25F550060E4AC /* OpenGLES.framework in Frameworks */,
 				3AF9FAFF17A25F320060E4AC /* AVFoundation.framework in Frameworks */,
@@ -114,6 +113,7 @@
 		3AF9F8AE17A25DFA0060E4AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3A56D31617A3E210006F8E7A /* ImageIO.framework */,
 				3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */,
 				3AF9FB0317A25F550060E4AC /* OpenGLES.framework */,
 				3AF9FAFE17A25F320060E4AC /* AVFoundation.framework */,
@@ -144,8 +144,6 @@
 			isa = PBXGroup;
 			children = (
 				3A56D30C17A3DD44006F8E7A /* 1.jpg */,
-				3A56D30D17A3DD44006F8E7A /* 2.jpg */,
-				3A56D30E17A3DD44006F8E7A /* 3.jpg */,
 				3AF9F8B717A25DFA0060E4AC /* XDWatermarkDemo-Info.plist */,
 				3AF9F8B817A25DFA0060E4AC /* InfoPlist.strings */,
 				3AF9F8BB17A25DFA0060E4AC /* main.m */,
@@ -247,8 +245,6 @@
 				3AF9F8C617A25DFA0060E4AC /* Default-568h@2x.png in Resources */,
 				3AF9F8CC17A25DFA0060E4AC /* DXViewController.xib in Resources */,
 				3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */,
-				3A56D31017A3DD44006F8E7A /* 2.jpg in Resources */,
-				3A56D31117A3DD44006F8E7A /* 3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
