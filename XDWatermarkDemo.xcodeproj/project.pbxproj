@@ -15,6 +15,10 @@
 		3ACDC3C217A523F300380ECF /* camera-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3BE17A523F300380ECF /* camera-button@2x.png */; };
 		3ACDC3C317A523F300380ECF /* camera-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3BF17A523F300380ECF /* camera-icon.png */; };
 		3ACDC3C417A523F300380ECF /* camera-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3C017A523F300380ECF /* camera-icon@2x.png */; };
+		3ACDC3D517A5268400380ECF /* cancle.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3D117A5268400380ECF /* cancle.png */; };
+		3ACDC3D617A5268400380ECF /* cancle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3D217A5268400380ECF /* cancle@2x.png */; };
+		3ACDC3D717A5268400380ECF /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3D317A5268400380ECF /* save.png */; };
+		3ACDC3D817A5268400380ECF /* save@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3D417A5268400380ECF /* save@2x.png */; };
 		3AED3CFC17A264AB0002FB35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */; };
 		3AF562C117A43ACA00151D09 /* flash-auto.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BB17A43ACA00151D09 /* flash-auto.png */; };
 		3AF562C217A43ACA00151D09 /* flash-auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */; };
@@ -66,6 +70,10 @@
 		3ACDC3BE17A523F300380ECF /* camera-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-button@2x.png"; sourceTree = "<group>"; };
 		3ACDC3BF17A523F300380ECF /* camera-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon.png"; sourceTree = "<group>"; };
 		3ACDC3C017A523F300380ECF /* camera-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon@2x.png"; sourceTree = "<group>"; };
+		3ACDC3D117A5268400380ECF /* cancle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancle.png; sourceTree = "<group>"; };
+		3ACDC3D217A5268400380ECF /* cancle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cancle@2x.png"; sourceTree = "<group>"; };
+		3ACDC3D317A5268400380ECF /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		3ACDC3D417A5268400380ECF /* save@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "save@2x.png"; sourceTree = "<group>"; };
 		3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3AF562BB17A43ACA00151D09 /* flash-auto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-auto.png"; sourceTree = "<group>"; };
 		3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-auto@2x.png"; sourceTree = "<group>"; };
@@ -167,6 +175,10 @@
 		3AF9F8B617A25DFA0060E4AC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3ACDC3D117A5268400380ECF /* cancle.png */,
+				3ACDC3D217A5268400380ECF /* cancle@2x.png */,
+				3ACDC3D317A5268400380ECF /* save.png */,
+				3ACDC3D417A5268400380ECF /* save@2x.png */,
 				3ACDC3BD17A523F300380ECF /* camera-button.png */,
 				3ACDC3BE17A523F300380ECF /* camera-button@2x.png */,
 				3ACDC3BF17A523F300380ECF /* camera-icon.png */,
@@ -293,6 +305,10 @@
 				3ACDC3C217A523F300380ECF /* camera-button@2x.png in Resources */,
 				3ACDC3C317A523F300380ECF /* camera-icon.png in Resources */,
 				3ACDC3C417A523F300380ECF /* camera-icon@2x.png in Resources */,
+				3ACDC3D517A5268400380ECF /* cancle.png in Resources */,
+				3ACDC3D617A5268400380ECF /* cancle@2x.png in Resources */,
+				3ACDC3D717A5268400380ECF /* save.png in Resources */,
+				3ACDC3D817A5268400380ECF /* save@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
