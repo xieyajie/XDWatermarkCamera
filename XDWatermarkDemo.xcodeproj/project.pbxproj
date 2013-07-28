@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3A56D30C17A3DD44006F8E7A /* 1.jpg */; };
 		3A56D31717A3E210006F8E7A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A56D31617A3E210006F8E7A /* ImageIO.framework */; };
+		3ACDC3BB17A5210800380ECF /* front-camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3B917A5210800380ECF /* front-camera.png */; };
+		3ACDC3BC17A5210800380ECF /* front-camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3BA17A5210800380ECF /* front-camera@2x.png */; };
+		3ACDC3C117A523F300380ECF /* camera-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3BD17A523F300380ECF /* camera-button.png */; };
+		3ACDC3C217A523F300380ECF /* camera-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3BE17A523F300380ECF /* camera-button@2x.png */; };
+		3ACDC3C317A523F300380ECF /* camera-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3BF17A523F300380ECF /* camera-icon.png */; };
+		3ACDC3C417A523F300380ECF /* camera-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3ACDC3C017A523F300380ECF /* camera-icon@2x.png */; };
 		3AED3CFC17A264AB0002FB35 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */; };
 		3AF562C117A43ACA00151D09 /* flash-auto.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BB17A43ACA00151D09 /* flash-auto.png */; };
 		3AF562C217A43ACA00151D09 /* flash-auto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */; };
@@ -54,6 +60,12 @@
 /* Begin PBXFileReference section */
 		3A56D30C17A3DD44006F8E7A /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		3A56D31617A3E210006F8E7A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		3ACDC3B917A5210800380ECF /* front-camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "front-camera.png"; sourceTree = "<group>"; };
+		3ACDC3BA17A5210800380ECF /* front-camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "front-camera@2x.png"; sourceTree = "<group>"; };
+		3ACDC3BD17A523F300380ECF /* camera-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-button.png"; sourceTree = "<group>"; };
+		3ACDC3BE17A523F300380ECF /* camera-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-button@2x.png"; sourceTree = "<group>"; };
+		3ACDC3BF17A523F300380ECF /* camera-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon.png"; sourceTree = "<group>"; };
+		3ACDC3C017A523F300380ECF /* camera-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-icon@2x.png"; sourceTree = "<group>"; };
 		3AED3CFB17A264AB0002FB35 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3AF562BB17A43ACA00151D09 /* flash-auto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-auto.png"; sourceTree = "<group>"; };
 		3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "flash-auto@2x.png"; sourceTree = "<group>"; };
@@ -155,6 +167,12 @@
 		3AF9F8B617A25DFA0060E4AC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3ACDC3BD17A523F300380ECF /* camera-button.png */,
+				3ACDC3BE17A523F300380ECF /* camera-button@2x.png */,
+				3ACDC3BF17A523F300380ECF /* camera-icon.png */,
+				3ACDC3C017A523F300380ECF /* camera-icon@2x.png */,
+				3ACDC3B917A5210800380ECF /* front-camera.png */,
+				3ACDC3BA17A5210800380ECF /* front-camera@2x.png */,
 				3AF562BB17A43ACA00151D09 /* flash-auto.png */,
 				3AF562BC17A43ACA00151D09 /* flash-auto@2x.png */,
 				3AF562BD17A43ACA00151D09 /* flash-off.png */,
@@ -269,6 +287,12 @@
 				3AF562C417A43ACA00151D09 /* flash-off@2x.png in Resources */,
 				3AF562C517A43ACA00151D09 /* flash.png in Resources */,
 				3AF562C617A43ACA00151D09 /* flash@2x.png in Resources */,
+				3ACDC3BB17A5210800380ECF /* front-camera.png in Resources */,
+				3ACDC3BC17A5210800380ECF /* front-camera@2x.png in Resources */,
+				3ACDC3C117A523F300380ECF /* camera-button.png in Resources */,
+				3ACDC3C217A523F300380ECF /* camera-button@2x.png in Resources */,
+				3ACDC3C317A523F300380ECF /* camera-icon.png in Resources */,
+				3ACDC3C417A523F300380ECF /* camera-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,6 +31,7 @@
 @synthesize takePhotoButton = _takePhotoButton;
 @synthesize watermarkScroll = _watermarkScroll;
 @synthesize flashButton = _flashButton;
+@synthesize positionButton = _positionButton;
 
 @synthesize saveButton = _saveButton;
 @synthesize cancelButton = _cancelButton;
@@ -52,9 +53,11 @@
     [self initialize];
     
     _preview = [AVCaptureVideoPreviewLayer layerWithSession: _session];
-    _preview.frame = self.cameraView.frame;
+    _preview.frame = CGRectMake(0, 0, self.cameraView.frame.size.width, self.cameraView.frame.size.height);
     _preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    [self.cameraView.layer addSublayer: _preview];
+    
+    [self.cameraView.layer addSublayer:_preview];
+     [_session startRunning];
     
     [self initWaterScroll];
 }
@@ -63,6 +66,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self addHollowOpenToView:self.cameraView];
 }
 
 #pragma mark - private
@@ -102,9 +110,6 @@
     NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
     [_captureOutput setOutputSettings:outputSettings];
 	[_session addOutput:_captureOutput];
-    
-    
-    [_session startRunning];
 }
 
 - (void)initWaterScroll
@@ -155,12 +160,46 @@
     }
 }
 
+- (void)addHollowOpenToView:(UIView *)view
+{
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.5f;
+    animation.delegate = self;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.fillMode = kCAFillModeForwards;
+    animation.type = @"cameraIrisHollowOpen";
+    [view.layer addAnimation:animation forKey:@"animation"];
+}
+
+- (void)addHollowCloseToView:(UIView *)view
+{
+    CATransition *animation = [CATransition animation];//初始化动画
+    animation.duration = 0.5f;//间隔的时间
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = @"cameraIrisHollowClose";
+    
+    [view.layer addAnimation:animation forKey:@"HollowClose"];
+}
+
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices)
+    {
+        if (device.position == position)
+        {
+            return device;
+        }
+    }
+    return nil;
+}
+
 
 #pragma mark - IBAction
 
 - (IBAction)takePhoto:(id)sender
 {
-    _watermarkScroll.scrollEnabled = NO;
+    [self addHollowCloseToView:self.cameraView];
     
     //get connection
     AVCaptureConnection *videoConnection = nil;
@@ -179,18 +218,16 @@
      ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
          _saveButton.hidden = NO;
          _cancelButton.hidden = NO;
+         [self addHollowCloseToView:self.cameraView];
          [_session stopRunning];
+         [self addHollowOpenToView:self.cameraView];
          CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
          if (exifAttachments) {
              // Do something with the attachments.
          }
          // Continue as appropriate.
          NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-         UIImage *image = [[UIImage alloc] initWithData:imageData] ;
-
-         NSInteger index = self.watermarkScroll.contentOffset.x / 320;
-         UIImage *waterImage = [UIImage imageNamed:@"1.jpg"];
-         _finishImage = [self composeImage:waterImage toImage:image atFrame:CGRectMake(0, 95 * index, 320, 95)];
+         _finishImage = [[UIImage alloc] initWithData:imageData] ;
      }];
 }
 
@@ -217,15 +254,68 @@
         [_device unlockForConfiguration];
         [_flashButton setEnabled:YES];
     }
+}
 
+- (IBAction)positionCnange:(id)sender
+{
+    //添加动画
+    CATransition *animation = [CATransition animation];
+    animation.delegate = self;
+    animation.duration = .8f;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = @"oglFlip";
+    if (_device.position == AVCaptureDevicePositionFront) {
+        animation.subtype = kCATransitionFromRight;
+    }
+    else if(_device.position == AVCaptureDevicePositionBack){
+        animation.subtype = kCATransitionFromLeft;
+    }
+    [_preview addAnimation:animation forKey:@"animation"];
+    
+    NSArray *inputs = _session.inputs;
+    for ( AVCaptureDeviceInput *input in inputs )
+    {
+        AVCaptureDevice *device = input.device;
+        if ([device hasMediaType:AVMediaTypeVideo])
+        {
+            AVCaptureDevicePosition position = device.position;
+            AVCaptureDevice *newCamera = nil;
+            AVCaptureDeviceInput *newInput = nil;
+            
+            if (position == AVCaptureDevicePositionFront)
+            {
+                newCamera = [self cameraWithPosition:AVCaptureDevicePositionBack];
+            }
+            else
+            {
+                newCamera = [self cameraWithPosition:AVCaptureDevicePositionFront];
+            }
+            _device = newCamera;
+            newInput = [AVCaptureDeviceInput deviceInputWithDevice:newCamera error:nil];
+            
+            // beginConfiguration ensures that pending changes are not applied immediately
+            [_session beginConfiguration];
+            
+            [_session removeInput:input];
+            [_session addInput:newInput];
+            
+            // Changes take effect once the outermost commitConfiguration is invoked.
+            [_session commitConfiguration];
+            break;
+        }
+    }
 }
 
 - (IBAction)saveAction:(id)sender
 {
+    UIImage *image = _finishImage;
+    NSInteger index = self.watermarkScroll.contentOffset.x / 320;
+    UIImage *waterImage = [UIImage imageNamed:@"1.jpg"];
+    _finishImage = [self composeImage:waterImage toImage:image atFrame:CGRectMake(0, 95 * index, 320, 95)];
+    
     UIImageWriteToSavedPhotosAlbum(_finishImage, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     _saveButton.hidden = YES;
     _cancelButton.hidden = YES;
-    _watermarkScroll.scrollEnabled = YES;
     [_session startRunning];
 }
 
@@ -233,10 +323,8 @@
 {
     _saveButton.hidden = YES;
     _cancelButton.hidden = YES;
-    _watermarkScroll.scrollEnabled = YES;
     [_session startRunning];
 }
-
 
 
 @end
