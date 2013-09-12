@@ -12,23 +12,26 @@
 
 @interface DXViewController : UIViewController
 
-@property (nonatomic, strong) IBOutlet UIView *cameraView;
-@property (nonatomic, strong) IBOutlet UIButton *takePhotoButton;
-@property (nonatomic, strong) IBOutlet UIButton *flashButton;
-@property (nonatomic, strong) IBOutlet UIButton *positionButton;
-@property (nonatomic, strong) IBOutlet UIButton *saveButton;
-@property (nonatomic, strong) IBOutlet UIButton *cancelButton;
+@property (nonatomic, strong) UIView *cameraView;
+@property (nonatomic, strong) UIButton *takePhotoButton;
+@property (nonatomic, strong) UIButton *flashButton;
+@property (nonatomic, strong) UIButton *positionButton;
+@property (nonatomic, strong) UIButton *saveButton;
+@property (nonatomic, strong) UIButton *cancelButton;
+
+@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UIView *bottomView;
 
 @property (nonatomic, strong) UIScrollView *watermarkScroll;
 
-- (IBAction)takePhoto:(id)sender;
+- (void)takePhoto:(id)sender;
 
-- (IBAction)changeFlash:(id)sender;
+- (void)changeFlash:(id)sender;
 
-- (IBAction)positionCnange:(id)sender;
+- (void)positionCnange:(id)sender;
 
-- (IBAction)saveAction:(id)sender;
+- (void)saveAction:(id)sender;
 
-- (IBAction)cancelAction:(id)sender;
+- (void)cancelAction:(id)sender;
 
 @end

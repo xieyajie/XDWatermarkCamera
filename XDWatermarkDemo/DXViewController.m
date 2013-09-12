@@ -33,12 +33,15 @@
 @synthesize flashButton = _flashButton;
 @synthesize positionButton = _positionButton;
 
+@synthesize topView = _topView;
+@synthesize bottomView = _bottomView;
+
 @synthesize saveButton = _saveButton;
 @synthesize cancelButton = _cancelButton;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
     }
     
@@ -49,7 +52,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
+//    CGSize size = [[UIScreen mainScreen] bounds].size;
+//    self.topView.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+//    self.bottomView.frame = CGRectMake(0, size.height - 65.0, self.view.frame.size.width, 65.0);
+//    self.cameraView.frame = CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width, size.height - self.topView.frame.size.height - self.bottomView.frame.size.height);
+
+    [self layoutSubviews];
     [self initialize];
     
     _preview = [AVCaptureVideoPreviewLayer layerWithSession: _session];
@@ -74,6 +82,53 @@
 }
 
 #pragma mark - private
+
+- (void)layoutSubviews
+{
+    _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    _topView.backgroundColor = [UIColor grayColor];
+//    [self.view addSubview:_topView];
+    
+    _flashButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 70, _topView.frame.size.height)];
+    _flashButton.contentMode = UIViewContentModeScaleAspectFit;
+    [_flashButton setImage:[UIImage imageNamed:@"flash-auto.png"] forState:UIControlStateNormal];
+    [_flashButton addTarget:self action:@selector(changeFlash:) forControlEvents:UIControlEventTouchUpInside];
+    [_topView addSubview:_flashButton];
+    
+    _positionButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 20 - 70, 0, 70, _topView.frame.size.height)];
+    _positionButton.contentMode = UIViewContentModeScaleAspectFit;
+    [_positionButton setImage:[UIImage imageNamed:@"front-camera.png"] forState:UIControlStateNormal];
+    [_positionButton addTarget:self action:@selector(positionCnange:) forControlEvents:UIControlEventTouchUpInside];
+    [_topView addSubview:_positionButton];
+    
+    _bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 65.0, self.view.frame.size.width, 65.0)];
+    _bottomView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:_bottomView];
+    
+    _takePhotoButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 80) / 2, 0, 80, _bottomView.frame.size.height)];
+    _takePhotoButton.contentMode = UIViewContentModeScaleAspectFit;
+    [_takePhotoButton setImage:[UIImage imageNamed:@"camera-icon.png"] forState:UIControlStateNormal];
+    [_takePhotoButton setBackgroundImage:[UIImage imageNamed:@"camera-button.png"] forState:UIControlStateNormal];
+    [_takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
+    [_bottomView addSubview:_takePhotoButton];
+    
+    _cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 70, _bottomView.frame.size.height)];
+    _cancelButton.contentMode = UIViewContentModeScaleAspectFit;
+    [_cancelButton setImage:[UIImage imageNamed:@"cancle.png"] forState:UIControlStateNormal];
+    [_cancelButton addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
+    _cancelButton.hidden = YES;
+    [_bottomView addSubview:_cancelButton];
+    
+    _saveButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 20 - 70, 0, 70, _bottomView.frame.size.height)];
+    _saveButton.contentMode = UIViewContentModeScaleAspectFit;
+    [_saveButton setImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];
+    [_saveButton addTarget:self action:@selector(saveAction:) forControlEvents:UIControlEventTouchUpInside];
+    _saveButton.hidden = YES;
+    [_bottomView addSubview:_saveButton];
+    
+    _cameraView = [[UIView alloc] initWithFrame:CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height, self.view.frame.size.width, self.view.frame.size.height - self.topView.frame.size.height - self.bottomView.frame.size.height)];
+    [self.view addSubview:_cameraView];
+}
 
 - (void) initialize
 {
@@ -195,9 +250,9 @@
 }
 
 
-#pragma mark - IBAction
+#pragma mark - button
 
-- (IBAction)takePhoto:(id)sender
+- (void)takePhoto:(id)sender
 {
     [self addHollowCloseToView:self.cameraView];
     
@@ -231,7 +286,7 @@
      }];
 }
 
-- (IBAction)changeFlash:(id)sender
+- (void)changeFlash:(id)sender
 {
     if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera] && [_device hasFlash])
     {
@@ -256,7 +311,7 @@
     }
 }
 
-- (IBAction)positionCnange:(id)sender
+- (void)positionCnange:(id)sender
 {
     //添加动画
     CATransition *animation = [CATransition animation];
@@ -306,7 +361,7 @@
     }
 }
 
-- (IBAction)saveAction:(id)sender
+- (void)saveAction:(id)sender
 {
     UIImage *image = _finishImage;
     NSInteger index = self.watermarkScroll.contentOffset.x / 320;
@@ -319,7 +374,7 @@
     [_session startRunning];
 }
 
-- (IBAction)cancelAction:(id)sender
+- (void)cancelAction:(id)sender
 {
     _saveButton.hidden = YES;
     _cancelButton.hidden = YES;

@@ -36,7 +36,6 @@
 		3AF9F8C417A25DFA0060E4AC /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9F8C317A25DFA0060E4AC /* Default@2x.png */; };
 		3AF9F8C617A25DFA0060E4AC /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9F8C517A25DFA0060E4AC /* Default-568h@2x.png */; };
 		3AF9F8C917A25DFA0060E4AC /* DXViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AF9F8C817A25DFA0060E4AC /* DXViewController.m */; };
-		3AF9F8CC17A25DFA0060E4AC /* DXViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF9F8CA17A25DFA0060E4AC /* DXViewController.xib */; };
 		3AF9FAF917A25F250060E4AC /* libGPUImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9FAF617A25EC50060E4AC /* libGPUImage.a */; };
 		3AF9FAFC17A25F250060E4AC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9FAFA17A25F250060E4AC /* CoreMedia.framework */; };
 		3AF9FAFD17A25F250060E4AC /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF9FAFB17A25F250060E4AC /* CoreVideo.framework */; };
@@ -96,7 +95,6 @@
 		3AF9F8C517A25DFA0060E4AC /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3AF9F8C717A25DFA0060E4AC /* DXViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DXViewController.h; sourceTree = "<group>"; };
 		3AF9F8C817A25DFA0060E4AC /* DXViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DXViewController.m; sourceTree = "<group>"; };
-		3AF9F8CB17A25DFA0060E4AC /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DXViewController.xib; sourceTree = "<group>"; };
 		3AF9FAEF17A25EC40060E4AC /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = XDWatermarkDemo/framework/GPUImage.xcodeproj; sourceTree = "<group>"; };
 		3AF9FAFA17A25F250060E4AC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3AF9FAFB17A25F250060E4AC /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -166,7 +164,6 @@
 				3AF9F8BF17A25DFA0060E4AC /* DXAppDelegate.m */,
 				3AF9F8C717A25DFA0060E4AC /* DXViewController.h */,
 				3AF9F8C817A25DFA0060E4AC /* DXViewController.m */,
-				3AF9F8CA17A25DFA0060E4AC /* DXViewController.xib */,
 				3AF9F8B617A25DFA0060E4AC /* Supporting Files */,
 			);
 			path = XDWatermarkDemo;
@@ -291,7 +288,6 @@
 				3AF9F8C217A25DFA0060E4AC /* Default.png in Resources */,
 				3AF9F8C417A25DFA0060E4AC /* Default@2x.png in Resources */,
 				3AF9F8C617A25DFA0060E4AC /* Default-568h@2x.png in Resources */,
-				3AF9F8CC17A25DFA0060E4AC /* DXViewController.xib in Resources */,
 				3A56D30F17A3DD44006F8E7A /* 1.jpg in Resources */,
 				3AF562C117A43ACA00151D09 /* flash-auto.png in Resources */,
 				3AF562C217A43ACA00151D09 /* flash-auto@2x.png in Resources */,
@@ -334,14 +330,6 @@
 				3AF9F8B917A25DFA0060E4AC /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		3AF9F8CA17A25DFA0060E4AC /* DXViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3AF9F8CB17A25DFA0060E4AC /* en */,
-			);
-			name = DXViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
