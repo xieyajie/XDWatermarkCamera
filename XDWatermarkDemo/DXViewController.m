@@ -87,7 +87,7 @@
 {
     _topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
     _topView.backgroundColor = [UIColor grayColor];
-//    [self.view addSubview:_topView];
+    [self.view addSubview:_topView];
     
     _flashButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 0, 70, _topView.frame.size.height)];
     _flashButton.contentMode = UIViewContentModeScaleAspectFit;
@@ -105,8 +105,8 @@
     _bottomView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:_bottomView];
     
-    _takePhotoButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 80) / 2, 0, 80, _bottomView.frame.size.height)];
-    _takePhotoButton.contentMode = UIViewContentModeScaleAspectFit;
+    _takePhotoButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 100) / 2, (_bottomView.frame.size.height - 40) / 2, 100, 40)];
+    _takePhotoButton.contentMode = UIViewContentModeScaleAspectFit | UIViewContentModeCenter;
     [_takePhotoButton setImage:[UIImage imageNamed:@"camera-icon.png"] forState:UIControlStateNormal];
     [_takePhotoButton setBackgroundImage:[UIImage imageNamed:@"camera-button.png"] forState:UIControlStateNormal];
     [_takePhotoButton addTarget:self action:@selector(takePhoto:) forControlEvents:UIControlEventTouchUpInside];
@@ -217,23 +217,23 @@
 
 - (void)addHollowOpenToView:(UIView *)view
 {
-    CATransition *animation = [CATransition animation];
-    animation.duration = 0.5f;
-    animation.delegate = self;
-    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    animation.fillMode = kCAFillModeForwards;
-    animation.type = @"cameraIrisHollowOpen";
-    [view.layer addAnimation:animation forKey:@"animation"];
+//    CATransition *animation = [CATransition animation];
+//    animation.duration = 0.5f;
+//    animation.delegate = self;
+//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+//    animation.fillMode = kCAFillModeForwards;
+//    animation.type = @"cameraIrisHollowOpen";
+//    [view.layer addAnimation:animation forKey:@"animation"];
 }
 
 - (void)addHollowCloseToView:(UIView *)view
 {
-    CATransition *animation = [CATransition animation];//初始化动画
-    animation.duration = 0.5f;//间隔的时间
-    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    animation.type = @"cameraIrisHollowClose";
-    
-    [view.layer addAnimation:animation forKey:@"HollowClose"];
+//    CATransition *animation = [CATransition animation];//初始化动画
+//    animation.duration = 0.5f;//间隔的时间
+//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+//    animation.type = @"cameraIrisHollowClose";
+//    
+//    [view.layer addAnimation:animation forKey:@"HollowClose"];
 }
 
 - (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position
@@ -288,6 +288,7 @@
 
 - (void)changeFlash:(id)sender
 {
+    BOOL re=[_device hasFlash];
     if([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera] && [_device hasFlash])
     {
         [_flashButton setEnabled:NO];
